@@ -1,4 +1,12 @@
 # Flyworks MCP: Free & Fast Zeroshot Lipsync Tool
+<div align="left">
+  <a href="https://discord.gg/YappgYYYFD" target="_blank">
+    <img src="https://img.shields.io/badge/Flyworks-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+  </a>
+  <a href="https://x.com/flyworks_ai" target="_blank">
+    <img src="https://img.shields.io/badge/Flyworks%20AI-%23000000.svg?style=for-the-badge&logo=X&logoColor=white" alt="Flyworks AI">
+  </a>
+</div>
 
 ### Overview
 
@@ -8,26 +16,19 @@ The Flyworks MCP is a Model Context Protocol (MCP) server that provides a conven
 
 Input avatar video (footage):
 <div align="center">
-<video width="50%" controls>
-  <source src="assets/avatar.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+  <video src="https://github.com/user-attachments/assets/2a062560-024a-43bc-9d91-9caa70fae2f4"> </video>
 </div>
 
-Audio clip with TTS saying `Welcome to Flyworks MCP server demo. 我是一个飞影数字人`:
+Audio clip with TTS saying `我是一个飞影数字人。Welcome to Flyworks MCP server demo. This tool enables fast and free lipsync video creation for a wide range of digital avatars, including realistic and cartoon styles.`:
 <div align="center">
-<audio controls>
-  <source src="assets/audio.wav" type="audio/wav">
-  Your browser does not support the audio element.
-</audio>
+<video src="https://github.com/user-attachments/assets/8a529c16-acc7-42ad-bacf-fafefea9cf25"></video>
 </div>
+
+
 
 Generated lipsync video:
 <div align="center">
-<video width="50%" controls>
-  <source src="assets/generated.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<video src="https://github.com/user-attachments/assets/52dbdd27-e345-49c2-8f46-586335248b9b"></video>
 </div>
 
 ### Features

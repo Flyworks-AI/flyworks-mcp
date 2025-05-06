@@ -34,6 +34,9 @@ Generated lipsync video:
 ### Features
 
 - Create lipsynced videos using digital avatar video and audio as inputs
+- Create lipsynced videos by text (with text-to-speech)
+- Create digital human avatars from images or videos
+- Support for both async and sync modes of operation
 - More features coming soon...
 
 ### Requirements
@@ -97,81 +100,105 @@ python server.py
 
 ##### Using in Claude Desktop
 
-1. Install the server using the `mcp` tool:
-   ```bash
-   mcp install /path/to/server.py
-   ```
-
-2. Add server configuration in Claude Desktop's configuration file:
-   Edit the `claude_desktop_config.json` file and add the following:
-
-   ```json
-   {
-     "mcpServers": {
-       "flyworks": {
-         "command": "python",
-         "args": ["/path/to/server.py"],
-         "env": {
-           "FLYWORKS_API_TOKEN": "your_api_token_here"
-         }
-       }
-     }
-   }
-   ```
-
-##### Using in Cursor
-
-Add the following to the Cursor MCP configuration:
+Go to `Claude > Settings > Developer > Edit Config > claude_desktop_config.json` to include the following:
 
 ```json
 {
   "mcpServers": {
     "flyworks": {
-      "command": "python",
-      "args": ["/path/to/server.py"],
+      "command": "uvx",
+      "args": [
+        "flyworks-mcp",
+        "-y"
+      ],
       "env": {
-        "FLYWORKS_API_TOKEN": "your_api_token_here"
+        "FLYWORKS_API_TOKEN": "your_api_token_here",
+        "FLYWORKS_API_BASE_URL": "https://hfw-api.hifly.cc/api/v2/hifly",
+        "FLYWORKS_MCP_BASE_PATH": "/path/to/your/output/directory"
       }
     }
   }
 }
 ```
 
+##### Using in Cursor
+Go to `Cursor -> Preferences -> Cursor Settings -> MCP -> Add new global MCP Server` to add above config.
+
+Make sure to replace `your_api_token_here` with your actual API token, and update the `FLYWORKS_MCP_BASE_PATH` to a valid directory on your system where output files will be saved.
+
+##### Issues: spawn uvx ENOENT
+Please confirm its absolute path by running this command in your terminal:
+```sh
+which uvx
+```
+Once you obtain the absolute path (e.g., /usr/local/bin/uvx), update your configuration to use that path (e.g., "command": "/usr/local/bin/uvx"). 
+
 ### Tool Description
 
-#### 1. Create Lipsync Video (`create_lipsync_video`)
+#### 1. Create Lipsync Video by Audio (`create_lipsync_video_by_audio`)
 
-Create a digital avatar lipsync video. Inputs are a digital avatar video and an audio file, and the output is a lipsynced video with the same length as the audio.
-
-**Parameters**:
-- `video_url`: Video file URL, required for video-driven creation, supports mp4, mov formats
-- `audio_url`: Audio file URL, required for audio-driven creation, supports mp3, m4a, wav formats
-
-**Return**:
-- `job_id`: The job ID of the video creation
-
-#### 2. Inspect Job Status (`inspect_job_status`)
-
-Query the video creation status. Returns the video URL for download if successful.
+Create a lipsync video with audio input. Animates a digital human avatar to speak in sync with the provided audio.
 
 **Parameters**:
-- `job_id`: Job ID, required. Returned when creating a work.
+- `avatar`: Digital human avatar ID. Either this or avatar creation parameters must be provided.
+- `avatar_video_url`: URL of a video to create the avatar from.
+- `avatar_image_url`: URL of an image to create the avatar from.
+- `avatar_video_file`: Local path to a video file to create the avatar from.
+- `avatar_image_file`: Local path to an image file to create the avatar from.
+- `audio_url`: Remote URL of the audio file. One of audio_url or audio_file must be provided.
+- `audio_file`: Local path to the audio file. One of audio_url or audio_file must be provided.
+- `title`: Optional title for the created video.
+- `async_mode`: If true, returns task_id immediately. If false, waits for completion and downloads the video. Default is true.
+- `output_path`: Where to save the downloaded video if async_mode is false. Default is "output.mp4".
 
-**Response Parameters**:
-- `message`: String, error message returned when failed
-- `code`: Int, error code when failed
-- `status`: Int, job status, 1: Waiting, 2: Processing, 3: Completed, 4: Failed
-- `video_Url`: URL, the URL of the generated video. This is a temporary URL, please save it promptly. The URL contains query parameters, ensure compatibility when downloading.
-- `duration`: Int, duration of the video in seconds
-- `request_id`: String, request code
+**Notes**:
+- For avatar creation, provide exactly ONE of avatar_video_url, avatar_image_url, avatar_video_file, or avatar_image_file.
+- If avatar ID is directly provided, these parameters will be ignored.
+
+**Returns**:
+- If async_mode is true: task_id for checking status later and created_avatar (if a new avatar was created)
+- If async_mode is false: downloaded video path, task result, and created_avatar (if applicable)
+
+#### 2. Create Lipsync Video by Text (`create_lipsync_video_by_text`)
+
+Create a lipsync video with text input. Generates audio from the text and animates a digital human avatar to speak it.
+
+**Parameters**:
+- `avatar`: Digital human avatar ID. Either this or avatar creation parameters must be provided.
+- `avatar_video_url`: URL of a video to create the avatar from.
+- `avatar_image_url`: URL of an image to create the avatar from.
+- `avatar_video_file`: Local path to a video file to create the avatar from.
+- `avatar_image_file`: Local path to an image file to create the avatar from.
+- `text`: Text content to be spoken by the avatar. Required.
+- `voice`: Voice ID to use for text-to-speech. If not provided, a random voice will be selected automatically.
+- `title`: Optional title for the created video.
+- `async_mode`: If true, returns task_id immediately. If false, waits for completion and downloads the video. Default is true.
+- `output_path`: Where to save the downloaded video if async_mode is false. Default is "output.mp4".
+
+**Notes**:
+- For avatar creation, provide exactly ONE of avatar_video_url, avatar_image_url, avatar_video_file, or avatar_image_file.
+- If avatar ID is directly provided, these parameters will be ignored.
+
+**Returns**:
+- If async_mode is true: task_id for checking status later, selected voice ID, and created_avatar (if applicable)
+- If async_mode is false: downloaded video path, task result, selected voice ID, and created_avatar (if applicable)
+
+### Checking Task Status
+
+For tasks run in async mode, you can check their status using the Flyworks API's `/creation/task` endpoint with the task_id returned by the tool.
 
 ### Notes
 
 - Job processing may take some time, please be patient
 - Video file URLs are temporary, please download and save them promptly
+- When using local files, the server will automatically upload them to Flyworks servers
+- In sync mode, the tool will wait for the task to complete and automatically download the video
+- Maximum allowed wait time for sync mode is 10 minutes (600 seconds)
+- Avatar creation through videos usually provides better quality but takes longer
+- For quick testing, avatar creation through images is faster but may have lower quality
 
 ### Related Links
 
-- [Flyworks AI Open Platform Documentation](https://api.lingverse.co/hifly.html)
+- [Flyworks AI Open Platform Documentation](https://api.hifly.cc/hifly_en.html)
 - [Model Context Protocol (MCP) Documentation](https://modelcontextprotocol.io/llms-full.txt)
 - [Python MCP SDK](https://github.com/modelcontextprotocol/python-sdk)

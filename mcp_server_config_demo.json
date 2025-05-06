@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "flyworks": {
+      "command": "uvx",
+      "args": [
+        "flyworks-mcp"
+      ],
+      "env": {
+        "FLYWORKS_API_TOKEN": "your_api_token_here",
+        "FLYWORKS_API_BASE_URL": "https://hfw-api.hifly.cc/api/v2/hifly",
+        "FLYWORKS_MCP_BASE_PATH": "/path/to/your/output/directory"
+      }
+    }
+  }
+} 

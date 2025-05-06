@@ -1,0 +1,1 @@
+"""Asset files for Flyworks MCP testing.""" 

@@ -1,13 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "flyworks"
-version = "0.1.0"
-description = "Add your description here"
+name = "flyworks-mcp"
+version = "0.2.2"
+description = "Flyworks MCP: Free & Fast Zeroshot Lipsync Tool"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.8"
+authors = [
+    {name = "Flyworks AI", email = "bd@flyworks.ai"}
+]
+keywords = ["mcp", "lipsync", "video-generation", "text-to-speech", "mcp-server"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "httpx>=0.28.1",
     "mcp[cli]>=1.6.0",
+    "asyncio>=3.4.3",
 ]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.20.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.20.0",
+    "build>=1.0.3",
+    "twine>=4.0.2",
+]
+
+[project.scripts]
+flyworks-mcp = "flyworks_mcp.server:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["flyworks_mcp", "flyworks_mcp.assets"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+flyworks_mcp = ["assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+asyncio_mode = "auto"
 
 [[tool.uv.index]]
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"

@@ -6,6 +6,7 @@
   <a href="https://x.com/flyworks_ai" target="_blank">
     <img src="https://img.shields.io/badge/Flyworks%20AI-%23000000.svg?style=for-the-badge&logo=X&logoColor=white" alt="Flyworks AI">
   </a>
+  <a href="https://smithery.ai/server/@Flyworks-AI/flyworks-mcp"><img alt="Smithery Badge" src="https://smithery.ai/badge/@Flyworks-AI/flyworks-mcp"></a>
 </div>
 
 ### Overview
@@ -45,6 +46,14 @@ Generated lipsync video:
 - Dependencies: `httpx`, `mcp[cli]`
 
 ### Installation
+
+#### Installing via Smithery
+
+To install flyworks-mcp for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@Flyworks-AI/flyworks-mcp):
+
+```bash
+npx -y @smithery/cli install @Flyworks-AI/flyworks-mcp --client claude
+```
 
 1. Clone this repository:
    ```bash

@@ -1,0 +1,37 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - flyworksApiToken
+    properties:
+      flyworksApiToken:
+        type: string
+        description: Flyworks API token
+      flyworksApiBaseUrl:
+        type: string
+        default: https://hfw-api.hifly.cc/api/v2/hifly
+        description: Base URL for Flyworks API
+      flyworksOutputBasePath:
+        type: string
+        default: ./output
+        description: Base path for output files
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'flyworks-mcp',
+      args: [],
+      env: {
+        FLYWORKS_API_TOKEN: config.flyworksApiToken,
+        FLYWORKS_API_BASE_URL: config.flyworksApiBaseUrl,
+        FLYWORKS_OUTPUT_BASE_PATH: config.flyworksOutputBasePath
+      }
+    })
+  exampleConfig:
+    flyworksApiToken: 2aeda3bcefac46a3
+    flyworksApiBaseUrl: https://hfw-api.hifly.cc/api/v2/hifly
+    flyworksOutputBasePath: ./output

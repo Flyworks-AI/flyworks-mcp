@@ -45,65 +45,7 @@ Generated lipsync video:
 - Python 3.8+
 - Dependencies: `httpx`, `mcp[cli]`
 
-### Installation
-
-#### Installing via Smithery
-
-To install flyworks-mcp for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@Flyworks-AI/flyworks-mcp):
-
-```bash
-npx -y @smithery/cli install @Flyworks-AI/flyworks-mcp --client claude
-```
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/flyworks-mcp.git
-   cd flyworks-mcp
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install httpx "mcp[cli]>=1.6.0"
-   ```
-   
-   Or using `uv`:
-   ```bash
-   uv pip install httpx "mcp[cli]>=1.6.0"
-   ```
-
-   To avoid timeout issues during server startup, we recommend pre-installing all dependencies:
-   ```bash
-   pip install pygments pydantic-core httpx "mcp[cli]>=1.6.0"
-   ```
-
-### Configuration
-
-Set your Flyworks API token as an environment variable:
-
-```bash
-# Linux/macOS
-export FLYWORKS_API_TOKEN="your_token_here"
-
-# Windows (Command Prompt)
-set FLYWORKS_API_TOKEN=your_token_here
-
-# Windows (PowerShell)
-$env:FLYWORKS_API_TOKEN="your_token_here"
-```
-
-Alternatively, you can create a `.env` file.
-
-> **Note:** We offer free trial access to our tool with the token `2aeda3bcefac46a3`. However, please be aware that the daily quota for this free access is limited. Additionally, the generated videos will be watermarked and restricted to a duration of 45 seconds. For full access, please contact us at bd@flyworks.ai to acquire your token.
-
 ### Usage
-
-#### Running the Server
-
-Run the `server.py` file directly:
-
-```bash
-python server.py
-```
 
 #### Integration with Claude or Other MCP Clients
 
@@ -135,7 +77,66 @@ Go to `Cursor -> Preferences -> Cursor Settings -> MCP -> Add new global MCP Ser
 
 Make sure to replace `your_api_token_here` with your actual API token, and update the `FLYWORKS_MCP_BASE_PATH` to a valid directory on your system where output files will be saved.
 
-##### Issues: spawn uvx ENOENT
+> **Note:** We offer free trial access to our tool with the token `2aeda3bcefac46a3`. However, please be aware that the daily quota for this free access is limited. Additionally, the generated videos will be watermarked and restricted to a duration of 45 seconds. For full access, please contact us at bd@flyworks.ai to acquire your token.
+
+
+
+#### Installing via Smithery
+
+To install flyworks-mcp for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@Flyworks-AI/flyworks-mcp):
+
+```bash
+npx -y @smithery/cli install @Flyworks-AI/flyworks-mcp --client claude
+```
+#### Install locally
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/flyworks-mcp.git
+   cd flyworks-mcp
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install httpx "mcp[cli]>=1.6.0"
+   ```
+   
+   Or using `uv`:
+   ```bash
+   uv pip install httpx "mcp[cli]>=1.6.0"
+   ```
+
+   To avoid timeout issues during server startup, we recommend pre-installing all dependencies:
+   ```bash
+   pip install pygments pydantic-core httpx "mcp[cli]>=1.6.0"
+   ```
+
+3. Configuration
+
+Set your Flyworks API token as an environment variable:
+
+```bash
+# Linux/macOS
+export FLYWORKS_API_TOKEN="your_token_here"
+
+# Windows (Command Prompt)
+set FLYWORKS_API_TOKEN=your_token_here
+
+# Windows (PowerShell)
+$env:FLYWORKS_API_TOKEN="your_token_here"
+```
+
+Alternatively, you can create a `.env` file.
+
+
+4. Running the Server
+
+Run the `server.py` file directly:
+
+```bash
+python server.py
+```
+
+##### spawn uvx ENOENT issue:
 Please confirm its absolute path by running this command in your terminal:
 ```sh
 which uvx

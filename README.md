@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/flyworks-ai-flyworks-mcp-badge.png)](https://mseep.ai/app/flyworks-ai-flyworks-mcp)
+
 # Flyworks MCP: Free & Fast Zeroshot Lipsync Tool
 <div align="left">
   <a href="https://discord.gg/YappgYYYFD" target="_blank">

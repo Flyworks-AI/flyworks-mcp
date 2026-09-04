@@ -6,7 +6,7 @@
   <a href="https://x.com/flyworks_ai" target="_blank">
     <img src="https://img.shields.io/badge/Flyworks%20AI-%23000000.svg?style=for-the-badge&logo=X&logoColor=white" alt="Flyworks AI">
   </a>
-  <a href="https://smithery.ai/server/@Flyworks-AI/flyworks-mcp"><img alt="Smithery Badge" src="https://smithery.ai/badge/@Flyworks-AI/flyworks-mcp"></a>
+  <a href="https://lightnow.ai/servers/io.github.flyworks-ai/flyworks-mcp"><img alt="LightNow" src="https://lightnow.ai/badge/io.github.flyworks-ai/flyworks-mcp"></a>
 </div>
 
 ### Overview
